@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Development": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "SI_BOT_ENVIRONMENT": "Development"
+      }
+    },
+    "Staging": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "SI_BOT_ENVIRONMENT": "Staging"
+      }
+    }
+  }
+}
