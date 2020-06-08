@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using SishIndustries.Discord.ModBot.Plugins;
-using SishIndustries.Discord.ModBot.Plugins.ReRole;
+using SishIndustries.Discord.ModBot.Core;
 
 namespace SishIndustries.Discord.ModBot
 {
@@ -16,20 +14,13 @@ namespace SishIndustries.Discord.ModBot
     {
         private IConfiguration Configuration { get; set; }
         private DiscordSocketClient DiscordClient { get; set; }
-        private IServiceProvider Services { get; set; }
-
         private IList<IModBotPlugin> Plugins { get; }
 
         public ModBot(IConfiguration configuration, DiscordSocketClient discordClient, IServiceProvider services)
         {
             Configuration = configuration;
             DiscordClient = discordClient;
-            Services = services;
-
-            Plugins = new List<IModBotPlugin>
-            {
-                Services.GetRequiredService<ReRolePlugin>()
-            };
+            Plugins = services.GetPlugins();
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

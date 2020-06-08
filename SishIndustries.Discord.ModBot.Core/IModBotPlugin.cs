@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace SishIndustries.Discord.ModBot.Plugins
+namespace SishIndustries.Discord.ModBot.Core
 {
     public interface IModBotPlugin
     {

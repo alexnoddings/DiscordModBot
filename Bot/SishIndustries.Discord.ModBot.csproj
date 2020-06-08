@@ -7,9 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Version="2.2.0" Include="Discord.Net" />
-    <PackageReference Version="$(AspNetCoreVersion)" Include="Microsoft.Extensions.Configuration.Abstractions" />
-    <PackageReference Version="$(AspNetCoreVersion)" Include="Microsoft.Extensions.DependencyInjection" />
+    <ProjectReference Include="..\SishIndustries.Discord.ModBot.Core\SishIndustries.Discord.ModBot.Core.csproj" />
+    <ProjectReference Include="..\SishIndustries.Discord.ModBot.Plugins.ReRole\SishIndustries.Discord.ModBot.Plugins.ReRole.csproj" />
   </ItemGroup>
 
 </Project>

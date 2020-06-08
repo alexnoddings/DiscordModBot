@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
+using SishIndustries.Discord.ModBot.Core;
 
 namespace SishIndustries.Discord.ModBot.Plugins.ReRole
 {
@@ -9,6 +10,7 @@ namespace SishIndustries.Discord.ModBot.Plugins.ReRole
     {
         public static void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ReRolePlugin>();
             services.AddSingleton<ReRoleService>();
             services.AddSingleton<ReRoleModule>();
         }

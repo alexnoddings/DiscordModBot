@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>SishIndustries.Discord.ModBot.Plugins.ReRole</PackageId>
+    <TargetFramework>$(DefaultNetStandardTargetFramework)</TargetFramework>
+    <Description>The ReRole plugin for Sish Industries' Discord Moderation bot</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SishIndustries.Discord.ModBot.Core\SishIndustries.Discord.ModBot.Core.csproj" />
+  </ItemGroup>
+
+</Project>
