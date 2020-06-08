@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Version="$(AspNetCoreVersion)" Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Version="$(MicrosoftPackagesVersion)" Include="Microsoft.Extensions.Hosting" />
   </ItemGroup>
 
   <ItemGroup>

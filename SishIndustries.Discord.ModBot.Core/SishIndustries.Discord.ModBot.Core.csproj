@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Version="2.2.0" Include="Discord.Net" />
-    <PackageReference Version="$(AspNetCoreVersion)" Include="Microsoft.Extensions.Configuration.Abstractions" />
-    <PackageReference Version="$(AspNetCoreVersion)" Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Version="$(MicrosoftPackagesVersion)" Include="Microsoft.Extensions.Configuration.Abstractions" />
+    <PackageReference Version="$(MicrosoftPackagesVersion)" Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
 </Project>
