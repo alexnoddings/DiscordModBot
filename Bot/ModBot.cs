@@ -7,10 +7,10 @@ using Discord;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SishIndustries.Discord.ModBot.Core.Plugins;
-using SishIndustries.Discord.ModBot.Core.Plugins.ReRole;
+using SishIndustries.Discord.ModBot.Plugins;
+using SishIndustries.Discord.ModBot.Plugins.ReRole;
 
-namespace SishIndustries.Discord.ModBot.Core
+namespace SishIndustries.Discord.ModBot
 {
     public class ModBot
     {

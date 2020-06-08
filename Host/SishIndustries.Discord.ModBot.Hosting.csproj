@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bot\SishIndustries.Discord.ModBot.Core.csproj" />
+    <ProjectReference Include="..\Bot\SishIndustries.Discord.ModBot.csproj" />
   </ItemGroup>
 
   <ItemGroup>

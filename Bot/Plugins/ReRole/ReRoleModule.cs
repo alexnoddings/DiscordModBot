@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Discord.Commands;
+﻿using Discord.Commands;
 
-namespace SishIndustries.Discord.ModBot.Core.Modules
+namespace SishIndustries.Discord.ModBot.Plugins.ReRole
 {
     public class ReRoleModule : ModuleBase<SocketCommandContext>
     {

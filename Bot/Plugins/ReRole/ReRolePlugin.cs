@@ -2,9 +2,8 @@
 using System.Threading.Tasks;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
-using SishIndustries.Discord.ModBot.Core.Modules;
 
-namespace SishIndustries.Discord.ModBot.Core.Plugins.ReRole
+namespace SishIndustries.Discord.ModBot.Plugins.ReRole
 {
     public class ReRolePlugin : IModBotPlugin
     {

@@ -8,9 +8,9 @@ namespace SishIndustries.Discord.ModBot.Hosting
     public class ModBotHostService : IHostedService
     {
         private ILogger<ModBotHostService> Logger { get; }
-        private Core.ModBot ModBot { get; }
+        private ModBot ModBot { get; }
 
-        public ModBotHostService(ILogger<ModBotHostService> logger, Core.ModBot modBot)
+        public ModBotHostService(ILogger<ModBotHostService> logger, ModBot modBot)
         {
             Logger = logger;
             ModBot = modBot;

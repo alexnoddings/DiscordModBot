@@ -7,7 +7,7 @@ using Discord;
 using Discord.Net;
 using Discord.WebSocket;
 
-namespace SishIndustries.Discord.ModBot.Core.Plugins.ReRole
+namespace SishIndustries.Discord.ModBot.Plugins.ReRole
 {
     public class ReRoleService
     {

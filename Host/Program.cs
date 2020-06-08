@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SishIndustries.Discord.ModBot.Core.Plugins.ReRole;
+using SishIndustries.Discord.ModBot.Plugins.ReRole;
 
 namespace SishIndustries.Discord.ModBot.Hosting
 {
@@ -43,10 +43,16 @@ namespace SishIndustries.Discord.ModBot.Hosting
                     services.AddHostedService<ModBotHostService>();
 
                     services.AddSingleton<DiscordSocketClient>();
-                    services.AddSingleton<Core.ModBot>();
+                    services.AddSingleton<ModBot>();
 
-                    services.AddSingleton<ReRolePlugin>();
-                    ReRolePlugin.ConfigureServices(services);
+                    AddPlugins(services);
                 });
+
+        private static void AddPlugins(IServiceCollection services)
+        {
+            ReRolePlugin.ConfigureServices(services);
+
+            services.AddSingleton<ReRolePlugin>();
+        }
     }
 }

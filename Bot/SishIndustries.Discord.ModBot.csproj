@@ -3,13 +3,13 @@
   <PropertyGroup>
     <PackageId>SishIndustries.Discord.ModBot</PackageId>
     <TargetFramework>$(DefaultNetStandardTargetFramework)</TargetFramework>
-    <Description>The core for Sish Industries' Discord Moderation bot</Description>
+    <Description>The main implementation for Sish Industries' Discord Moderation bot</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Version="2.2.0" Include="Discord.Net" />
     <PackageReference Version="$(AspNetCoreVersion)" Include="Microsoft.Extensions.Configuration.Abstractions" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.4" />
+    <PackageReference Version="$(AspNetCoreVersion)" Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
 </Project>
