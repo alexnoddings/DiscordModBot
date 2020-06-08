@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Discord.WebSocket;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SishIndustries.Discord.ModBot.Core;
 
@@ -8,11 +9,12 @@ namespace SishIndustries.Discord.ModBot.Plugins.RequestRole
 {
     public class RequestRolePlugin : IModBotPlugin
     {
-        public static void ConfigureServices(IServiceCollection services)
+        public static void ConfigureServices(IServiceCollection services, IConfiguration configuration, string environment)
         {
             services.AddSingleton<RequestRolePlugin>();
-            services.AddSingleton<RequestRoleService>();
             services.AddSingleton<RequestRoleModule>();
+
+            services.AddScoped<RequestRoleService>();
         }
 
         private RequestRoleModule Module { get; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SishIndustries.Discord.ModBot.Core;
 using SishIndustries.Discord.ModBot.Plugins.RequestRole;
@@ -9,10 +10,10 @@ namespace SishIndustries.Discord.ModBot
 {
     public static class PluginExtensions
     {
-        public static IServiceCollection AddPlugins(this IServiceCollection services)
+        public static IServiceCollection AddPlugins(this IServiceCollection services, IConfiguration configuration, string environment)
         {
-            RequestRolePlugin.ConfigureServices(services);
-            ReRolePlugin.ConfigureServices(services);
+            RequestRolePlugin.ConfigureServices(services, configuration, environment);
+            ReRolePlugin.ConfigureServices(services, configuration, environment);
 
             return services;
         }

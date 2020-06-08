@@ -44,7 +44,7 @@ namespace SishIndustries.Discord.ModBot.Hosting
                     services.AddSingleton<DiscordSocketClient>();
                     services.AddSingleton<ModBot>();
 
-                    services.AddPlugins();
+                    services.AddPlugins(hostContext.Configuration, hostContext.HostingEnvironment.EnvironmentName);
                 });
     }
 }

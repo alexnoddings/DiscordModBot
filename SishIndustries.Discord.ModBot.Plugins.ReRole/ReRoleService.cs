@@ -1,83 +1,81 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Net;
 using Discord.WebSocket;
+using SishIndustries.Discord.ModBot.Plugins.ReRole.Data;
 
 namespace SishIndustries.Discord.ModBot.Plugins.ReRole
 {
     public class ReRoleService
     {
-        private class PreviousRoles
-        {
-            public DateTime Added { get; }
-            public ulong UserId { get; }
-            public ulong GuildId { get; }
-            public IList<ulong> RoleIds { get; }
-
-            public PreviousRoles(DateTime added, ulong userId, ulong guildId, IList<ulong> roleIds)
-            {
-                Added = added;
-                UserId = userId;
-                GuildId = guildId;
-                RoleIds = roleIds;
-            }
-
-            public PreviousRoles(ulong userId, ulong guildId, IList<ulong> roleIds)
-                : this(DateTime.Now, userId, guildId, roleIds)
-            {
-            }
-        }
-
         private static TimeSpan MaxReAddTime = TimeSpan.FromMinutes(120);
         private static RequestOptions DefaultRequestOptions = new RequestOptions {AuditLogReason = "[ReRole] Adding user's previous roles back"};
 
-        private IList<PreviousRoles> Roles { get; } = new List<PreviousRoles>();
+        private ReRoleDbContext DbContext { get; }
+
+        public ReRoleService(ReRoleDbContext dbContext)
+        {
+            DbContext = dbContext;
+        }
 
         public async Task OnUserLeftAsync(SocketGuildUser user)
         {
-            var roleIds = 
+            var previousRoleDetails = 
+                DbContext.PreviousRoleDetails.Add(new PreviousRoleDetails(user.Id, user.Guild.Id));
+
+            var roles =
                 user.Roles
                     .Where(r => !r.IsEveryone && !r.IsManaged)
                     .Select(r => r.Id)
+                    .Select(rid => new PreviousRole{RoleId = rid})
                     .ToList();
-            var previousRoles = new PreviousRoles(user.Id, user.Guild.Id, roleIds);
-            Roles.Add(previousRoles);
+
+
+            if (roles.Count == 0)
+                return;
+
+            previousRoleDetails.Entity.PreviousRoles.AddRange(roles);
+
+            await DbContext.SaveChangesAsync();
         }
 
         public async Task OnUserJoinedAsync(SocketGuildUser user)
         {
-            var previousRoles = Roles.FirstOrDefault(pr => pr.UserId == user.Id && pr.GuildId == user.Guild.Id);
-            if (previousRoles == null)
+            var previousRoleDetails = await DbContext.PreviousRoleDetails.FirstOrDefaultAsync(prd => prd.UserId == user.Id && prd.GuildId == user.Guild.Id);
+
+            if (previousRoleDetails == null)
                 return;
 
-            Roles.Remove(previousRoles);
-            if (DateTime.Now - previousRoles.Added > MaxReAddTime)
-                return;
-
-            var guild = user.Guild;
-            var highestBotRole = guild.CurrentUser.Roles.Max(r => r.Position);
-            var roles =
-                previousRoles.RoleIds
-                    .Select(rid => guild.GetRole(rid))
-                    // Role may have been deleted
-                    .Where(r => r != null)
-                    // Ensure it is assignable
-                    .Where(r => !r.IsEveryone && !r.IsManaged)
-                    // Ensure the bot has the power to assign it
-                    .Where(r => r.Position < highestBotRole);
-
-            try
+            var timeSinceLeft = DateTime.Now - previousRoleDetails.Added;
+            if (timeSinceLeft < MaxReAddTime)
             {
-                await user.AddRolesAsync(roles, DefaultRequestOptions);
+                var guild = user.Guild;
+                var highestBotRole = guild.CurrentUser.Roles.Max(r => r.Position);
+                var roles =
+                    previousRoleDetails.PreviousRoles
+                        .Select(pr => guild.GetRole(pr.RoleId))
+                        // Role may have been deleted
+                        .Where(r => r != null)
+                        // Ensure it is assignable
+                        .Where(r => !r.IsEveryone && !r.IsManaged)
+                        // Ensure the bot has the power to assign it
+                        .Where(r => r.Position < highestBotRole);
+
+                try
+                {
+                    await user.AddRolesAsync(roles, DefaultRequestOptions);
+                }
+                catch (HttpException e) when (e.HttpCode == HttpStatusCode.Forbidden)
+                {
+                    // Send error
+                }
             }
-            catch (HttpException e) when (e.HttpCode == HttpStatusCode.Forbidden)
-            {
-                // Send error
-            }
+
+            DbContext.PreviousRoleDetails.Remove(previousRoleDetails);
+            await DbContext.SaveChangesAsync();
         }
     }
 }
