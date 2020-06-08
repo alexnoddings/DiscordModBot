@@ -1,10 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <PackageId>SishIndustries.Discord.ModBot.Plugins.ReRole</PackageId>
     <TargetFramework>$(DefaultNetStandardTargetFramework)</TargetFramework>
     <Description>The ReRole plugin for Sish Industries' Discord Moderation bot</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Version="$(MicrosoftPackagesVersion)" Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Version="$(MicrosoftPackagesVersion)" Include="Microsoft.EntityFrameworkCore.Design" />
+    <PackageReference Version="$(MicrosoftPackagesVersion)" Include="Microsoft.EntityFrameworkCore.Proxies" />
+    <PackageReference Version="$(MicrosoftPackagesVersion)" Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Version="$(MicrosoftPackagesVersion)" Include="Microsoft.EntityFrameworkCore.Tools">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SishIndustries.Discord.ModBot.Core\SishIndustries.Discord.ModBot.Core.csproj" />
