@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SishIndustries.Discord.ModBot.Core\SishIndustries.Discord.ModBot.Core.csproj" />
+    <ProjectReference Include="..\SishIndustries.Discord.ModBot.Plugins.RequestRole\SishIndustries.Discord.ModBot.Plugins.RequestRole.csproj" />
     <ProjectReference Include="..\SishIndustries.Discord.ModBot.Plugins.ReRole\SishIndustries.Discord.ModBot.Plugins.ReRole.csproj" />
   </ItemGroup>
 
