@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Solution", ".Solution", "{
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		Directory.Build.props = Directory.Build.props
+		LICENSE.txt = LICENSE.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SishIndustries.Discord.ModBot.Hosting", "Host\SishIndustries.Discord.ModBot.Hosting.csproj", "{3E01996C-0529-4EE3-B64D-D674980EFFF8}"
@@ -16,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SishIndustries.Discord.ModB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{5F821C04-917C-4AA6-954E-2D9C257A7750}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SishIndustries.Discord.ModBot.Plugins.ReRole", "SishIndustries.Discord.ModBot.Plugins.ReRole\SishIndustries.Discord.ModBot.Plugins.ReRole.csproj", "{36A0ADD1-E8D0-4108-A8AE-036663304EA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SishIndustries.Discord.ModBot.Plugins.ReRole", "SishIndustries.Discord.ModBot.Plugins.ReRole\SishIndustries.Discord.ModBot.Plugins.ReRole.csproj", "{36A0ADD1-E8D0-4108-A8AE-036663304EA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SishIndustries.Discord.ModBot.Core", "SishIndustries.Discord.ModBot.Core\SishIndustries.Discord.ModBot.Core.csproj", "{EB2C5D3A-AC17-479C-9B43-D9BEB216227A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SishIndustries.Discord.ModBot.Core", "SishIndustries.Discord.ModBot.Core\SishIndustries.Discord.ModBot.Core.csproj", "{EB2C5D3A-AC17-479C-9B43-D9BEB216227A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SishIndustries.Discord.ModBot.Plugins.RequestRole", "SishIndustries.Discord.ModBot.Plugins.RequestRole\SishIndustries.Discord.ModBot.Plugins.RequestRole.csproj", "{6C155AD4-5533-41D2-A00D-B9DFDFFB831F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,12 +45,17 @@ Global
 		{EB2C5D3A-AC17-479C-9B43-D9BEB216227A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB2C5D3A-AC17-479C-9B43-D9BEB216227A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB2C5D3A-AC17-479C-9B43-D9BEB216227A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C155AD4-5533-41D2-A00D-B9DFDFFB831F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C155AD4-5533-41D2-A00D-B9DFDFFB831F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C155AD4-5533-41D2-A00D-B9DFDFFB831F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C155AD4-5533-41D2-A00D-B9DFDFFB831F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{36A0ADD1-E8D0-4108-A8AE-036663304EA8} = {5F821C04-917C-4AA6-954E-2D9C257A7750}
+		{6C155AD4-5533-41D2-A00D-B9DFDFFB831F} = {5F821C04-917C-4AA6-954E-2D9C257A7750}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {656BEE1B-F1C2-40C2-A10A-FEA7E78B30C3}
