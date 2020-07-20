@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Solution", ".Solution", "{D2905FBD-47DF-4FCA-BD30-BBE81FEF42E2}"
+	ProjectSection(SolutionItems) = preProject
+		.filenesting.json = .filenesting.json
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Elvet", "Bot\Elvet.csproj", "{3E01996C-0529-4EE3-B64D-D674980EFFF8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E01996C-0529-4EE3-B64D-D674980EFFF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E01996C-0529-4EE3-B64D-D674980EFFF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E01996C-0529-4EE3-B64D-D674980EFFF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E01996C-0529-4EE3-B64D-D674980EFFF8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {656BEE1B-F1C2-40C2-A10A-FEA7E78B30C3}
+	EndGlobalSection
+EndGlobal

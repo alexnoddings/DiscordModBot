@@ -1,32 +1,41 @@
 <Project>
+
   <!-- Project information -->
   <PropertyGroup>
-    <Product>Discord Moderation Bot</Product>
-    <Authors>Sish</Authors>
-    <Company>Sish Industries</Company>
+    <Product>Elvet Discord Moderation Bot</Product>
+    <Authors>Alex Noddings</Authors>
+    <Company>Alex Noddings</Company>
   </PropertyGroup>
 
   <!-- Default values -->
   <PropertyGroup>
-    <StrongNameKeyId>SishIndustriesDiscordModBot</StrongNameKeyId>
-    
-    <!-- Default target for Net Core-targetting projects -->
-    <DefaultNetCoreTargetFramework>netcoreapp3.1</DefaultNetCoreTargetFramework>
-    <!-- Default target for Net Standard-targetting projects -->
-    <DefaultNetStandardTargetFramework>netstandard2.1</DefaultNetStandardTargetFramework>
-    <!-- Default version for ASP-related NuGet packages -->
-    <MicrosoftPackagesVersion>3.1.4</MicrosoftPackagesVersion>
+    <LangVersion>8.0</LangVersion>
+
+    <StrongNameKeyId>AlexNoddingsElvet</StrongNameKeyId>
 
     <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
-    <RepositoryUrl>https://github.com/alexnoddings/discordmodbot</RepositoryUrl>
+    <RepositoryUrl>https://github.com/alexnoddings/elvet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
-    <IncludeSymbols>true</IncludeSymbols>
+    <!-- Enables Strict mode for Roslyn compiler -->
+    <Features>strict</Features>
   </PropertyGroup>
 
-  <!-- Defines project type conventions. -->
+  <!-- Default package versions -->
+  <PropertyGroup>
+    <!-- Targets -->
+    <DefaultNetCoreTargetFramework>netcoreapp3.1</DefaultNetCoreTargetFramework>
+    <DefaultNetStandardTargetFramework>netstandard2.1</DefaultNetStandardTargetFramework>
+    <!-- Asp Net Core -->
+    <AspNetCoreVersion>3.1.5</AspNetCoreVersion>
+    <EntityFrameworkVersion>3.1.5</EntityFrameworkVersion>
+    <!-- Misc -->
+    <FxCopAnalyzersVersion>3.0.0</FxCopAnalyzersVersion>
+  </PropertyGroup>
+
+  <!-- Project conventions -->
   <PropertyGroup>
     <RepoRelativeProjectDir>$([MSBuild]::MakeRelative($(RepoRoot), $(MSBuildProjectDirectory)))</RepoRelativeProjectDir>
 
@@ -35,27 +44,32 @@
     <IsUnitTestProject>false</IsUnitTestProject>
     <IsUnitTestProject Condition="$(MSBuildProjectName.EndsWith('Tests'))">true</IsUnitTestProject>
 
-    <!--
-      Following logic mimics core-setup approach as well as
-      https://github.com/dotnet/arcade/blob/694d59f090b743f894779d04a7ffe11cbaf352e7/src/Microsoft.DotNet.Arcade.Sdk/tools/Publish.proj#L30-L31
-      $(DotNetFinalVersionKind) is set globally when doing final aka stable builds. Arcade infrastructure should pick
-      up $(IsStableBuild) automatically; property is also used to control prerelease branding.
-    -->
     <IsStableBuild>false</IsStableBuild>
     <IsStableBuild Condition=" '$(Configuration)' == 'Release' ">true</IsStableBuild>
+
+    <IncludeSymbols>true</IncludeSymbols>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
-  <!-- Warnings and errors. -->
+  <!-- Warnings and errors -->
   <PropertyGroup>
     <Nullable>enable</Nullable>
+    <!-- Warnings to ignore and not surface. -->
+    <NoWarn>
+      $(NoWarn);
+    </NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <!-- Don't make missing XML docs a fatal build error, but still surface so we have visibility into undocumented APIs. -->
-    <WarningsNotAsErrors>$(WarningsNotAsErrors);CS1591</WarningsNotAsErrors>
-    <!-- Don't make marking a method as async without performing an await a fatal build error as it makes some methods more consistent and easier to read, but still surface. -->
-    <WarningsNotAsErrors>$(WarningsNotAsErrors);CS1998</WarningsNotAsErrors>
+    <!-- Warnings to not treat as errors but still surface. -->
+    <WarningsNotAsErrors>
+      $(WarningsNotAsErrors);
+      <!-- Don't make missing XML docs a fatal build error. -->
+      CS1591;
+      <!-- Don't make marking a method as async without performing an await a fatal build error as it makes some methods more consistent and easier to read. -->
+      CS1998;
+    </WarningsNotAsErrors>
   </PropertyGroup>
 
-  <!-- Targets. -->
+  <!-- Targets -->
   <PropertyGroup>
     <TargetOsName Condition=" '$(TargetOsName)' == '' AND $([MSBuild]::IsOSPlatform('Windows'))">win</TargetOsName>
     <TargetOsName Condition=" '$(TargetOsName)' == '' AND $([MSBuild]::IsOSPlatform('OSX'))">osx</TargetOsName>
@@ -63,5 +77,11 @@
     <TargetArchitecture Condition="'$(TargetArchitecture)' == ''">x64</TargetArchitecture>
     <TargetRuntimeIdentifier Condition="'$(TargetRuntimeIdentifier)' == ''">$(TargetOsName)-$(TargetArchitecture)</TargetRuntimeIdentifier>
   </PropertyGroup>
+
+  <!-- Enables file nesting for projects -->
+  <ItemGroup>
+    <ProjectCapability Include="DynamicDependentFile" />
+    <ProjectCapability Include="DynamicFileNesting" />
+  </ItemGroup>
 
 </Project>
