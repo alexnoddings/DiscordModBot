@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Discord;
@@ -36,7 +37,7 @@ namespace Elvet.Core
 
         public async Task StopAsync()
         {
-            IEnumerable<ModuleInfo> loadedModules = _commands.Modules;
+            List<ModuleInfo> loadedModules = _commands.Modules.ToList();
             foreach (ModuleInfo module in loadedModules)
                 await _commands.RemoveModuleAsync(module).ConfigureAwait(false);
         }
