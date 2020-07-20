@@ -66,6 +66,8 @@
       CS1591;
       <!-- Don't make marking a method as async without performing an await a fatal build error as it makes some methods more consistent and easier to read. -->
       CS1998;
+      <!-- Web server exceptions do not need to be localised. -->
+      CA1303;
     </WarningsNotAsErrors>
   </PropertyGroup>
 
