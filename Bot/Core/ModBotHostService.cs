@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace SishIndustries.Discord.ModBot.Hosting
+namespace Elvet.Core
 {
     public class ModBotHostService : IHostedService
     {
@@ -19,14 +19,14 @@ namespace SishIndustries.Discord.ModBot.Hosting
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             Logger.LogInformation("Starting bot");
-            await ModBot.StartAsync(cancellationToken);
+            await ModBot.StartAsync(cancellationToken).ConfigureAwait(false);
             Logger.LogInformation("Bot started");
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
             Logger.LogInformation("Stopping bot");
-            await ModBot.StopAsync(cancellationToken);
+            await ModBot.StopAsync(cancellationToken).ConfigureAwait(false);
             Logger.LogInformation("Bot stopped");
         }
     }

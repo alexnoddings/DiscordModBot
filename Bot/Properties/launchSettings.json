@@ -3,13 +3,13 @@
     "Development": {
       "commandName": "Project",
       "environmentVariables": {
-        "SI_BOT_ENVIRONMENT": "Development"
+        "ELVET_ENVIRONMENT": "Development"
       }
     },
     "Staging": {
       "commandName": "Project",
       "environmentVariables": {
-        "SI_BOT_ENVIRONMENT": "Staging"
+        "ELVET_ENVIRONMENT": "Staging"
       }
     }
   }

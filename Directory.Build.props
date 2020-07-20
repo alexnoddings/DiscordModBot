@@ -1,7 +1,8 @@
 <Project>
+
   <!-- Project information -->
   <PropertyGroup>
-    <Product>Discord Moderation Bot</Product>
+    <Product>Elvet Discord Moderation Bot</Product>
     <Authors>Alex Noddings</Authors>
     <Company>Alex Noddings</Company>
   </PropertyGroup>
@@ -10,10 +11,10 @@
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
 
-    <StrongNameKeyId>AlexNoddingsDiscordModBot</StrongNameKeyId>
+    <StrongNameKeyId>AlexNoddingsElvet</StrongNameKeyId>
 
     <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
-    <RepositoryUrl>https://github.com/alexnoddings/DiscordModBot</RepositoryUrl>
+    <RepositoryUrl>https://github.com/alexnoddings/elvet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -29,6 +30,9 @@
     <DefaultNetStandardTargetFramework>netstandard2.1</DefaultNetStandardTargetFramework>
     <!-- Asp Net Core -->
     <AspNetCoreVersion>3.1.5</AspNetCoreVersion>
+    <EntityFrameworkVersion>3.1.5</EntityFrameworkVersion>
+    <!-- Misc -->
+    <FxCopAnalyzersVersion>3.0.0</FxCopAnalyzersVersion>
   </PropertyGroup>
 
   <!-- Project conventions -->
@@ -53,8 +57,6 @@
     <!-- Warnings to ignore and not surface. -->
     <NoWarn>
       $(NoWarn);
-      <!-- Web server exceptions do not need to be localised. -->
-      CA1303;
     </NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <!-- Warnings to not treat as errors but still surface. -->
@@ -64,6 +66,8 @@
       CS1591;
       <!-- Don't make marking a method as async without performing an await a fatal build error as it makes some methods more consistent and easier to read. -->
       CS1998;
+      <!-- Web server exceptions do not need to be localised. -->
+      CA1303;
     </WarningsNotAsErrors>
   </PropertyGroup>
 
@@ -75,4 +79,11 @@
     <TargetArchitecture Condition="'$(TargetArchitecture)' == ''">x64</TargetArchitecture>
     <TargetRuntimeIdentifier Condition="'$(TargetRuntimeIdentifier)' == ''">$(TargetOsName)-$(TargetArchitecture)</TargetRuntimeIdentifier>
   </PropertyGroup>
+
+  <!-- Enables file nesting for projects -->
+  <ItemGroup>
+    <ProjectCapability Include="DynamicDependentFile" />
+    <ProjectCapability Include="DynamicFileNesting" />
+  </ItemGroup>
+
 </Project>

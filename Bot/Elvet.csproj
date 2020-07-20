@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Elvet</PackageId>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>
+    <Description>Discord Moderation bot.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Version="2.2.0" Include="Discord.Net" />
+    <PackageReference Include="LoxSmoke.DocXml" Version="3.4.4" />
+    <PackageReference Version="$(EntityFrameworkVersion)" Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Version="$(EntityFrameworkVersion)" Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Version="$(EntityFrameworkVersion)" Include="Microsoft.EntityFrameworkCore.Tools" />
+    <PackageReference Version="$(AspNetCoreVersion)" Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Version="$(FxCopAnalyzersVersion)" Include="Microsoft.CodeAnalysis.FxCopAnalyzers" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
