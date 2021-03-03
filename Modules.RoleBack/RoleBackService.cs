@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord;
@@ -56,10 +55,17 @@ namespace Elvet.RoleBack
             if (userGuildRoles.LeftUtc + _config.RolesValidFor < DateTime.UtcNow)
                 return;
 
-            var roles = guildUser.Guild.Roles.Where(role => userGuildRoles.Roles.Contains(role.Id));
+            // Will fail to add roles if they have a higher position than the bot's highest role
+            var highestBotRolePosition = guildUser.Guild.CurrentUser.Roles.Max(role => role.Position);
+
+            var roles =
+                guildUser
+                    .Guild
+                    .Roles
+                    .Where(role => userGuildRoles.Roles.Contains(role.Id)
+                                   && role.Position < highestBotRolePosition);
             await guildUser.AddRolesAsync(roles, DefaultAddRolesRequestOptions);
         }
-
 
         /// <summary>
         /// Called when a <see cref="SocketGuildUser" /> leaves a <see cref="IGuild" />.
