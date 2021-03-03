@@ -44,7 +44,22 @@ namespace Elvet.Core.Plugins
         /// </summary>
         /// <typeparam name="TService">The service to run on.</typeparam>
         /// <param name="expression">The expression to run on the <see cref="TService" />.</param>
+        /// <param name="shouldBlock">
+        ///     Whether or not to block on the given <paramref name="expression"/>.
+        ///     <para><see langword="false"/> will return a <c>Task.CompletedTask</c>, allowing the <paramref name="expression"/> to execute in the background. Injected services will stay in scope during this time, whereas captured ones may not. Should be used to avoid blocking the GateWay.</para>
+        ///     <para><see langword="true"/> will return a <see cref="Task"/> representing the <paramref name="expression"/>'s execution. This is useful when using captured services, but should be avoided for long-running operations as it will block the GateWay.</para>
+        /// </param>
+        /// <returns>A <see cref="Task" /> that represents the <paramref name="expression" />'s execution, or <c>Task.CompletedTask</c> if <paramref name="shouldBlock"/> is <see langword="false"/>.</returns>
+        protected Task RunOnScopedServiceAsync<TService>(Expression<Func<TService, Task>> expression, bool shouldBlock = false)
+            where TService : class
+        {
+            var blockingTask = RunOnScopedServiceBlockingAsync(expression);
+            return shouldBlock ? blockingTask : Task.CompletedTask;
+        }
+
         /// <returns>A <see cref="Task" /> that represents the <paramref name="expression" />'s execution.</returns>
+        /// <inheritdoc cref="RunOnScopedServiceAsync{TService}"/>
+        private async Task RunOnScopedServiceBlockingAsync<TService>(Expression<Func<TService, Task>> expression)
             where TService : class
         {
             var methodIdentifier = GetMethodIdentifier(expression);
