@@ -99,6 +99,8 @@ namespace Elvet.Host
         private Task LogDiscordClientMessage(LogMessage message)
         {
             var level = message.Severity.ToLogLevel();
+            var content = message.Message is null ? "[No log message]" : $"[{message.Source}] {message.Message}";
+            _discordClientLogger.Log(level, message.Exception, content);
             return Task.CompletedTask;
         }
     }
