@@ -20,6 +20,8 @@ namespace Elvet.Core.Plugins
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
         protected ILogger<ElvetPluginBase> Logger { get; }
+        protected abstract bool IsRunning { get; }
+
         /// <summary>
         /// Initialises a new instance of the <see cref="ElvetPluginBase" />.
         /// </summary>
@@ -46,6 +48,9 @@ namespace Elvet.Core.Plugins
             where TService : class
         {
             var methodIdentifier = GetMethodIdentifier(expression);
+
+            if (!IsRunning)
+                throw new InvalidOperationException($"Cannot run {methodIdentifier} when the plugin is not running.");
 
             var function = expression.Compile();
             using var scope = _serviceScopeFactory.CreateScope();
