@@ -2,16 +2,15 @@
 
   <!-- Project information -->
   <PropertyGroup>
-    <Product>Elvet Discord Moderation Bot</Product>
+    <Product>Elvet</Product>
     <Authors>Alex Noddings</Authors>
     <Company>Alex Noddings</Company>
+    <StrongNameKeyId>AlexNoddingsElvet</StrongNameKeyId>
   </PropertyGroup>
 
   <!-- Default values -->
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
-
-    <StrongNameKeyId>AlexNoddingsElvet</StrongNameKeyId>
+    <LangVersion>latest</LangVersion>
 
     <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
     <RepositoryUrl>https://github.com/alexnoddings/elvet</RepositoryUrl>
@@ -26,29 +25,9 @@
   <!-- Default package versions -->
   <PropertyGroup>
     <!-- Targets -->
-    <DefaultNetCoreTargetFramework>netcoreapp3.1</DefaultNetCoreTargetFramework>
-    <DefaultNetStandardTargetFramework>netstandard2.1</DefaultNetStandardTargetFramework>
-    <!-- Asp Net Core -->
-    <AspNetCoreVersion>3.1.5</AspNetCoreVersion>
-    <EntityFrameworkVersion>3.1.5</EntityFrameworkVersion>
-    <!-- Misc -->
-    <FxCopAnalyzersVersion>3.0.0</FxCopAnalyzersVersion>
-  </PropertyGroup>
-
-  <!-- Project conventions -->
-  <PropertyGroup>
-    <RepoRelativeProjectDir>$([MSBuild]::MakeRelative($(RepoRoot), $(MSBuildProjectDirectory)))</RepoRelativeProjectDir>
-
-    <IsReferenceAssemblyProject>false</IsReferenceAssemblyProject>
-
-    <IsUnitTestProject>false</IsUnitTestProject>
-    <IsUnitTestProject Condition="$(MSBuildProjectName.EndsWith('Tests'))">true</IsUnitTestProject>
-
-    <IsStableBuild>false</IsStableBuild>
-    <IsStableBuild Condition=" '$(Configuration)' == 'Release' ">true</IsStableBuild>
-
-    <IncludeSymbols>true</IncludeSymbols>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DefaultFramework>net6.0</DefaultFramework>
+    <MicrosoftPackageVersion>6.0.0-preview.1.21102.12</MicrosoftPackageVersion>
+    <EntityFrameworkPackageVersion>6.0.0-preview.1.21102.2</EntityFrameworkPackageVersion>
   </PropertyGroup>
 
   <!-- Warnings and errors -->
@@ -66,24 +45,7 @@
       CS1591;
       <!-- Don't make marking a method as async without performing an await a fatal build error as it makes some methods more consistent and easier to read. -->
       CS1998;
-      <!-- Web server exceptions do not need to be localised. -->
-      CA1303;
     </WarningsNotAsErrors>
   </PropertyGroup>
-
-  <!-- Targets -->
-  <PropertyGroup>
-    <TargetOsName Condition=" '$(TargetOsName)' == '' AND $([MSBuild]::IsOSPlatform('Windows'))">win</TargetOsName>
-    <TargetOsName Condition=" '$(TargetOsName)' == '' AND $([MSBuild]::IsOSPlatform('OSX'))">osx</TargetOsName>
-    <TargetOsName Condition=" '$(TargetOsName)' == '' AND $([MSBuild]::IsOSPlatform('Linux'))">linux</TargetOsName>
-    <TargetArchitecture Condition="'$(TargetArchitecture)' == ''">x64</TargetArchitecture>
-    <TargetRuntimeIdentifier Condition="'$(TargetRuntimeIdentifier)' == ''">$(TargetOsName)-$(TargetArchitecture)</TargetRuntimeIdentifier>
-  </PropertyGroup>
-
-  <!-- Enables file nesting for projects -->
-  <ItemGroup>
-    <ProjectCapability Include="DynamicDependentFile" />
-    <ProjectCapability Include="DynamicFileNesting" />
-  </ItemGroup>
 
 </Project>
