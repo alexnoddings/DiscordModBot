@@ -37,7 +37,7 @@ namespace Elvet.Core.Config.Extensions
         /// <returns>The <paramref name="services" /> with the <see cref="IBotConfig" /> added to enable chaining.</returns>
         public static IServiceCollection AddConfig<TConfig, TConfigImplementation>(this IServiceCollection services, params string[] pathSections)
             where TConfig : class
-            where TConfigImplementation : TConfig =>
+            where TConfigImplementation : class, TConfig =>
             services.AddTransient<TConfig>(innerServices =>
                 innerServices
                     .GetRequiredService<IConfiguration>()
@@ -64,7 +64,7 @@ namespace Elvet.Core.Config.Extensions
         /// <returns>The <paramref name="services" /> with the <see cref="IBotConfig" /> added to enable chaining.</returns>
         public static IServiceCollection AddValidatedConfig<TConfig, TConfigImplementation>(this IServiceCollection services, params string[] pathSections)
             where TConfig : class
-            where TConfigImplementation : TConfig, IValidateAble<TConfigImplementation> =>
+            where TConfigImplementation : class, TConfig, IValidateAble<TConfigImplementation> =>
             services.AddTransient<TConfig>(innerServices =>
                 innerServices
                     .GetRequiredService<IConfiguration>()
