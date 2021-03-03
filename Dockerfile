@@ -5,16 +5,16 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Elvet.Main/Elvet.Main.csproj", "Elvet.Main/"]
-RUN dotnet restore "Elvet.Main/Elvet.Main.csproj"
+COPY ["Host/Elvet.Host.csproj", "Host/"]
+RUN dotnet restore "Host/Elvet.Host.csproj"
 COPY . .
-WORKDIR "/src/Elvet.Main"
-RUN dotnet build "Elvet.Main.csproj" -c Release -o /app/build
+WORKDIR "/src/Host"
+RUN dotnet build "Elvet.Host.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Elvet.Main.csproj" -c Release -o /app/publish
+RUN dotnet publish "Elvet.Host.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Elvet.Main.dll"]
+ENTRYPOINT ["dotnet", "Elvet.Host.dll"]
