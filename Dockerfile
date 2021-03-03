@@ -5,6 +5,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
+COPY ["Directory.Build.props", "./"]
 COPY ["Host/Elvet.Host.csproj", "Host/"]
 COPY ["Core/Elvet.Core.csproj", "Core/"]
 COPY ["Modules.RoleBack/Elvet.RoleBack.csproj", "Modules.RoleBack/"]
