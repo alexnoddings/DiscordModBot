@@ -28,6 +28,7 @@ namespace Elvet.Core.Config.Extensions
 
             var path = string.Join(" > ", pathSections);
             throw new MissingConfigurationException($"Missing or empty required configuration: {path}");
+            throw new MissingConfigurationException($"Required configuration is missing or empty: {path}");
         }
     }
 }
