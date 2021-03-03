@@ -17,9 +17,9 @@ namespace Elvet.Core.Plugins
     /// </remarks>
     public abstract class ElvetPluginBase : IElvetPlugin
     {
-        private readonly ILogger<ElvetPluginBase> _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
+        protected ILogger<ElvetPluginBase> Logger { get; }
         /// <summary>
         /// Initialises a new instance of the <see cref="ElvetPluginBase" />.
         /// </summary>
@@ -27,7 +27,7 @@ namespace Elvet.Core.Plugins
         /// <param name="serviceScopeFactory">The <see cref="IServiceScopeFactory" /> used to enabled running scoped operations.</param>
         protected ElvetPluginBase(ILogger<ElvetPluginBase> logger, IServiceScopeFactory serviceScopeFactory)
         {
-            _logger = logger;
+            Logger = logger;
             _serviceScopeFactory = serviceScopeFactory;
         }
 
@@ -43,7 +43,6 @@ namespace Elvet.Core.Plugins
         /// <typeparam name="TService">The service to run on.</typeparam>
         /// <param name="expression">The expression to run on the <see cref="TService" />.</param>
         /// <returns>A <see cref="Task" /> that represents the <paramref name="expression" />'s execution.</returns>
-        protected async Task RunOnScopedServiceAsync<TService>(Expression<Func<TService, Task>> expression)
             where TService : class
         {
             var methodIdentifier = GetMethodIdentifier(expression);
@@ -52,7 +51,7 @@ namespace Elvet.Core.Plugins
             using var scope = _serviceScopeFactory.CreateScope();
             var service = scope.ServiceProvider.GetRequiredService<TService>();
 
-            _logger.LogDebug("Invoking {InvocationTarget} on scoped service.", methodIdentifier);
+            Logger.LogDebug("Invoking {InvocationTarget} on scoped service.", methodIdentifier);
 
             try
             {
@@ -60,7 +59,7 @@ namespace Elvet.Core.Plugins
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Error invoking {InvocationTarget}.", methodIdentifier);
+                Logger.LogError(e, "Error invoking {InvocationTarget}.", methodIdentifier);
             }
         }
 
