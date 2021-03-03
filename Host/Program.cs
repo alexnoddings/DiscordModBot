@@ -3,6 +3,7 @@ using Discord.WebSocket;
 using Elvet.Core.Commands;
 using Elvet.Core.Config.Extensions;
 using Elvet.Core.Plugins.Registration;
+using Elvet.RoleBack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -62,7 +63,8 @@ namespace Elvet.Host
 
             // Modules
             services
-                .AddPluginRegister();
+                .AddPluginRegister()
+                .AddRoleBackPlugin(host.Configuration);
         }
     }
 }
