@@ -50,7 +50,7 @@ namespace Elvet.Host
         /// </summary>
         /// <param name="cancellationToken">Indicates that the start process has been aborted.</param>
         /// <returns>A <see cref="Task" /> that represents the service starting.</returns>
-        public async Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken = default)
         {
             _discordClient.Log += LogDiscordClientMessage;
 
@@ -63,7 +63,7 @@ namespace Elvet.Host
             await Task.WhenAll(_pluginRegister.Plugins.Select(plugin => plugin.StartAsync(cancellationToken)));
 
             _logger.LogInformation("Starting command handler.");
-            await _commandHandler.StartAsync();
+            await _commandHandler.StartAsync(cancellationToken);
 
             await _discordClient.SetStatusAsync(UserStatus.Online);
             _logger.LogInformation("Bot started.");
@@ -74,10 +74,10 @@ namespace Elvet.Host
         /// </summary>
         /// <param name="cancellationToken">Indicates that the shutdown process should no longer be graceful.</param>
         /// <returns>A <see cref="Task" /> that represents the service stopping.</returns>
-        public async Task StopAsync(CancellationToken cancellationToken)
+        public async Task StopAsync(CancellationToken cancellationToken = default)
         {
             _logger.LogInformation("Stopping command handler.");
-            await _commandHandler.StopAsync();
+            await _commandHandler.StopAsync(cancellationToken);
 
             _logger.LogInformation("Stopping Plugins.");
             await Task.WhenAll(_pluginRegister.Plugins.Select(module => module.StopAsync(cancellationToken)));
@@ -99,7 +99,8 @@ namespace Elvet.Host
         private Task LogDiscordClientMessage(LogMessage message)
         {
             var level = message.Severity.ToLogLevel();
-            _discordClientLogger.Log(level, message.Exception, message.Message, message.Source);
+            var content = message.Message is null ? "[No log message]" : $"[{message.Source}] {message.Message}";
+            _discordClientLogger.Log(level, message.Exception, content);
             return Task.CompletedTask;
         }
     }

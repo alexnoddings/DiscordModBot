@@ -17,8 +17,10 @@ namespace Elvet.Core.Plugins
     /// </remarks>
     public abstract class ElvetPluginBase : IElvetPlugin
     {
-        private readonly ILogger<ElvetPluginBase> _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
+
+        protected ILogger<ElvetPluginBase> Logger { get; }
+        protected abstract bool IsRunning { get; }
 
         /// <summary>
         /// Initialises a new instance of the <see cref="ElvetPluginBase" />.
@@ -27,7 +29,7 @@ namespace Elvet.Core.Plugins
         /// <param name="serviceScopeFactory">The <see cref="IServiceScopeFactory" /> used to enabled running scoped operations.</param>
         protected ElvetPluginBase(ILogger<ElvetPluginBase> logger, IServiceScopeFactory serviceScopeFactory)
         {
-            _logger = logger;
+            Logger = logger;
             _serviceScopeFactory = serviceScopeFactory;
         }
 
@@ -42,17 +44,34 @@ namespace Elvet.Core.Plugins
         /// </summary>
         /// <typeparam name="TService">The service to run on.</typeparam>
         /// <param name="expression">The expression to run on the <see cref="TService" />.</param>
+        /// <param name="shouldBlock">
+        ///     Whether or not to block on the given <paramref name="expression"/>.
+        ///     <para><see langword="false"/> will return a <c>Task.CompletedTask</c>, allowing the <paramref name="expression"/> to execute in the background. Injected services will stay in scope during this time, whereas captured ones may not. Should be used to avoid blocking the GateWay.</para>
+        ///     <para><see langword="true"/> will return a <see cref="Task"/> representing the <paramref name="expression"/>'s execution. This is useful when using captured services, but should be avoided for long-running operations as it will block the GateWay.</para>
+        /// </param>
+        /// <returns>A <see cref="Task" /> that represents the <paramref name="expression" />'s execution, or <c>Task.CompletedTask</c> if <paramref name="shouldBlock"/> is <see langword="false"/>.</returns>
+        protected Task RunOnScopedServiceAsync<TService>(Expression<Func<TService, Task>> expression, bool shouldBlock = false)
+            where TService : class
+        {
+            var blockingTask = RunOnScopedServiceBlockingAsync(expression);
+            return shouldBlock ? blockingTask : Task.CompletedTask;
+        }
+
         /// <returns>A <see cref="Task" /> that represents the <paramref name="expression" />'s execution.</returns>
-        protected async Task RunOnScopedServiceAsync<TService>(Expression<Func<TService, Task>> expression)
+        /// <inheritdoc cref="RunOnScopedServiceAsync{TService}"/>
+        private async Task RunOnScopedServiceBlockingAsync<TService>(Expression<Func<TService, Task>> expression)
             where TService : class
         {
             var methodIdentifier = GetMethodIdentifier(expression);
+
+            if (!IsRunning)
+                throw new InvalidOperationException($"Cannot run {methodIdentifier} when the plugin is not running.");
 
             var function = expression.Compile();
             using var scope = _serviceScopeFactory.CreateScope();
             var service = scope.ServiceProvider.GetRequiredService<TService>();
 
-            _logger.LogDebug("Invoking {InvocationTarget} on scoped service.", methodIdentifier);
+            Logger.LogDebug("Invoking {InvocationTarget} on scoped service.", methodIdentifier);
 
             try
             {
@@ -60,7 +79,7 @@ namespace Elvet.Core.Plugins
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Error invoking {InvocationTarget}.", methodIdentifier);
+                Logger.LogError(e, "Error invoking {InvocationTarget}.", methodIdentifier);
             }
         }
 

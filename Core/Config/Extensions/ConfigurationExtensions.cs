@@ -18,16 +18,18 @@ namespace Elvet.Core.Config.Extensions
         /// <returns>The <typeparamref name="TConfig" /> from the <paramref name="configuration" />.</returns>
         /// <exception cref="MissingConfigurationException">Thrown when the <paramref name="pathSections" /> did not contain a <typeparamref name="TConfig" />.</exception>
         public static TConfig GetRequiredSection<TConfig>(this IConfiguration configuration, params string[] pathSections)
+            where TConfig : class
         {
             var configSection = configuration ?? throw new ArgumentNullException(nameof(configuration));
             foreach (var sectionKey in pathSections)
                 configSection = configSection.GetSection(sectionKey);
 
             var config = configSection.Get<TConfig>();
-            if (config is not null) return config;
+            if (config is not null)
+                return config;
 
             var path = string.Join(" > ", pathSections);
-            throw new MissingConfigurationException($"Missing or empty required configuration: {path}");
+            throw new MissingConfigurationException($"Required configuration is missing or empty: {path}");
         }
     }
 }

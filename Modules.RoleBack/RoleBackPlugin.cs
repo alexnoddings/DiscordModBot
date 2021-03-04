@@ -13,9 +13,8 @@ namespace Elvet.RoleBack
     /// <summary>
     /// The RoleBack plugin.
     /// </summary>
-    internal class RoleBackPlugin : ElvetPluginBase<RoleBackService>
+    internal class RoleBackPlugin : ElvetPluginBase<RoleBackService, RoleBackConfig>
     {
-        private readonly ILogger<RoleBackPlugin> _logger;
         private readonly DiscordSocketClient _discordClient;
 
         /// <summary>
@@ -24,18 +23,17 @@ namespace Elvet.RoleBack
         /// <param name="logger">The <see cref="ILogger" />.</param>
         /// <param name="serviceScopeFactory">The <see cref="IServiceScopeFactory" /> used to enabled running scoped operations.</param>
         /// <param name="discordClient">The <see cref="DiscordSocketClient" /> to use.</param>
-        public RoleBackPlugin(ILogger<RoleBackPlugin> logger, IServiceScopeFactory serviceScopeFactory, DiscordSocketClient discordClient)
-            : base(logger, serviceScopeFactory)
+        public RoleBackPlugin(ILogger<RoleBackPlugin> logger, IServiceScopeFactory serviceScopeFactory, RoleBackConfig config, DiscordSocketClient discordClient)
+            : base(logger, serviceScopeFactory, config)
         {
-            _logger = logger;
             _discordClient = discordClient;
         }
 
         public override IEnumerable<Type> GetModules() => Enumerable.Empty<Type>();
 
-        public override Task StartAsync(CancellationToken cancellationToken = default)
+        protected override Task OnStartAsync(CancellationToken cancellationToken = default)
         {
-            _logger.LogInformation("Starting RoleBack.");
+            Logger.LogInformation("Starting RoleBack.");
 
             _discordClient.UserJoined += OnUserJoinedGuild;
             _discordClient.UserLeft += OnUserLeftGuild;
@@ -43,9 +41,9 @@ namespace Elvet.RoleBack
             return Task.CompletedTask;
         }
 
-        public override Task StopAsync(CancellationToken cancellationToken = default)
+        protected override Task OnStopAsync(CancellationToken cancellationToken = default)
         {
-            _logger.LogInformation("Stopping RoleBack.");
+            Logger.LogInformation("Stopping RoleBack.");
 
             _discordClient.UserJoined -= OnUserJoinedGuild;
             _discordClient.UserLeft -= OnUserLeftGuild;
