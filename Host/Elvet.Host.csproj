@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Elvet.Core.csproj" />
-    <ProjectReference Include="..\Modules.Parrot\Elvet.Parrot.csproj" />
-    <ProjectReference Include="..\Modules.RoleBack\Elvet.RoleBack.csproj" />
+    <ProjectReference Include="..\Plugins.Parrot\Elvet.Parrot.csproj" />
+    <ProjectReference Include="..\Plugins.RoleBack\Elvet.RoleBack.csproj" />
   </ItemGroup>
 </Project>
