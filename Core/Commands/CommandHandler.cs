@@ -109,6 +109,30 @@ namespace Elvet.Core.Commands
 
             await context.Message.AddReactionAsync(new Emoji("❌"));
 
+            switch (result.Error)
+            {
+                case CommandError.UnknownCommand:
+                    await context.Message.ReplyAsync($"Unknown command: {result.ErrorReason}");
+                    return;
+                case CommandError.ParseFailed:
+                    await context.Message.ReplyAsync($"Failed to parse command: {result.ErrorReason}");
+                    return;
+                case CommandError.BadArgCount:
+                    await context.Message.ReplyAsync($"Invalid arguments: {result.ErrorReason}");
+                    return;
+                case CommandError.ObjectNotFound:
+                    await context.Message.ReplyAsync($"Object not found by type reader: {result.ErrorReason}");
+                    return;
+                case CommandError.MultipleMatches:
+                    await context.Message.ReplyAsync($"Multiple matches for type reader: {result.ErrorReason}");
+                    return;
+                case CommandError.UnmetPrecondition:
+                    await context.Message.ReplyAsync($"Invalid precondition: {result.ErrorReason}");
+                    return;
+                default:
+                    break;
+            }
+
             if (result is not ExecuteResult executeResult)
             {
                 var trace = context.Message.Id;
