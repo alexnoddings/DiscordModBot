@@ -17,7 +17,7 @@ namespace Elvet.Host
     /// <summary>
     /// Long-running service which hosts the Bot.
     /// </summary>
-    public class BotService : IHostedService, IDisposable
+    internal class BotService : IHostedService, IDisposable
     {
         private readonly ILogger<BotService> _logger;
         private readonly ILogger<DiscordSocketClient> _discordClientLogger;
