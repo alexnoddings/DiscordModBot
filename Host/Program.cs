@@ -1,8 +1,6 @@
-using Discord.Commands;
-using Discord.WebSocket;
-using Elvet.Core.Commands;
-using Elvet.Core.Config.Extensions;
-using Elvet.Core.Plugins.Registration;
+using Elvet.Core.Extensions;
+using Elvet.Core.Plugins.Extensions;
+using Elvet.Parrot;
 using Elvet.RoleBack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,20 +49,15 @@ namespace Elvet.Host
         /// <param name="services">The <see cref="IServiceCollection" /> to add to.</param>
         private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-            services.AddBotConfig();
-
-            services.AddSingleton(host.HostingEnvironment);
-
-            services.AddSingleton<DiscordSocketClient>();
-            services.AddSingleton<CommandService>();
-            services.AddCommandHandler();
-
             services.AddHostedService<BotService>();
 
-            // Modules
             services
-                .AddPluginRegister()
-                .AddRoleBackPlugin(host.Configuration);
+                .AddElvetCore()
+                .AddPlugins(host.Configuration, pluginsBuilder =>
+                    pluginsBuilder
+                        .AddRoleBackPlugin()
+                        .AddParrotPlugin()
+                );
         }
     }
 }
