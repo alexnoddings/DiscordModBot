@@ -1,4 +1,4 @@
-﻿using Elvet.Core.Config.Exceptions;
+using Elvet.Core.Config.Exceptions;
 
 namespace Elvet.Core.Config
 {
@@ -11,13 +11,17 @@ namespace Elvet.Core.Config
 
         public string Token { get; set; } = string.Empty;
 
+        public string CommandPrefix { get; set; } = ",,";
+
         public BotConfig Validate()
         {
             if (string.IsNullOrWhiteSpace(Name))
-                throw new BadConfigurationException("Invalid bot name. Cannot be null or whitespace.");
+                throw new BadConfigurationException(nameof(Name), nameof(BotConfig), "cannot be null or whitespace.");
 
             if (string.IsNullOrWhiteSpace(Token))
-                throw new BadConfigurationException("Invalid bot token. Cannot be null or whitespace.");
+                throw new BadConfigurationException(nameof(Token), nameof(BotConfig), "cannot be null or whitespace.");
+
+            CommandPrefix ??= string.Empty;
 
             return this;
         }

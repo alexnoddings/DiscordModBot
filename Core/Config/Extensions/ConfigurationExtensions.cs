@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Elvet.Core.Config.Exceptions;
 using Microsoft.Extensions.Configuration;
 
@@ -21,8 +22,7 @@ namespace Elvet.Core.Config.Extensions
             where TConfig : class
         {
             var configSection = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            foreach (var sectionKey in pathSections)
-                configSection = configSection.GetSection(sectionKey);
+            configSection = pathSections.Aggregate(configSection, (current, sectionKey) => current.GetSection(sectionKey));
 
             var config = configSection.Get<TConfig>();
             if (config is not null)

@@ -24,8 +24,7 @@ namespace Elvet.Core.Config.Exceptions
         }
 
         /// <summary>
-        /// Initialises a new instance of the <see cref="ConfigurationException" /> with a specified <paramref name="message" />
-        /// and an inner <paramref name="innerException" />.
+        /// Initialises a new instance of the <see cref="ConfigurationException" /> with a specified <paramref name="message" /> and an inner <paramref name="innerException" />.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception, or <c><see langword="null" /></c> if no <paramref name="innerException"/> is specified.</param>

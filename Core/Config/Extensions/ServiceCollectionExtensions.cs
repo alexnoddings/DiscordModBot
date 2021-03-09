@@ -9,14 +9,6 @@ namespace Elvet.Core.Config.Extensions
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Adds the default <see cref="IBotConfig" /> implementation to the <paramref name="services" />.
-        /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection" /> to add to.</param>
-        /// <returns>The <paramref name="services" /> with the <see cref="IBotConfig" /> added to enable chaining.</returns>
-        public static IServiceCollection AddBotConfig(this IServiceCollection services) =>
-            services.AddValidatedConfig<IBotConfig, BotConfig>("Elvet", "Bot");
-
-        /// <summary>
         /// Adds a <typeparamref name="TConfig" /> implementation to the <paramref name="services" /> with the given <paramref name="pathSections" />.
         /// </summary>
         /// <typeparam name="TConfig">The config implementation.</typeparam>

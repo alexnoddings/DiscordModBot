@@ -1,4 +1,4 @@
-﻿namespace Elvet.Core.Config
+namespace Elvet.Core.Config
 {
     /// <summary>
     /// Bot-wide configuration options.
@@ -14,5 +14,10 @@
         /// The application's Bot Token.
         /// </summary>
         public string Token { get; }
+
+        /// <summary>
+        /// The prefix before Bot commands.
+        /// </summary>
+        public string CommandPrefix { get; }
     }
 }
