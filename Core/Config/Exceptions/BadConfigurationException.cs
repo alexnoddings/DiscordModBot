@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Elvet.Core.Config.Exceptions
 {
@@ -27,6 +27,16 @@ namespace Elvet.Core.Config.Exceptions
         /// </summary>
         /// <inheritdoc />
         public BadConfigurationException(string? message, Exception? innerException) : base(message, innerException)
+        {
+        }
+
+        /// <summary>
+        /// Initialises a new instance of the <see cref="BadConfigurationException" />.
+        /// </summary>
+        /// <param name="configItem">The name of the bad configuration item.</param>
+        /// <param name="configName">The name of the configuration type.</param>
+        /// <param name="message">Why the configuration is bad.</param>
+        public BadConfigurationException(string configItem, string configName, string message) : base($"Invalid {configItem} on {configName}: {message}")
         {
         }
     }

@@ -1,8 +1,8 @@
 using Elvet.Core.Config.Extensions;
-using Elvet.Core.Plugins.Registration;
+using Elvet.Core.Plugins.Builder;
+using Elvet.Core.Plugins.Extensions;
 using Elvet.RoleBack.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Elvet.RoleBack
@@ -13,16 +13,21 @@ namespace Elvet.RoleBack
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Adds the RoleBack plugin and it's required services to the <paramref name="services" />.
+        /// Adds the RoleBack plugin and it's required services to the <paramref name="pluginBuilder" />.
         /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection" /> to add the plugin to.</param>
-        /// <param name="configuration">The <see cref="IConfiguration" /> to use when configuring the plugin.</param>
-        /// <returns>The <paramref name="services" /> with the plugin added to enable chaining.</returns>
-        public static IServiceCollection AddRoleBackPlugin(this IServiceCollection services, IConfiguration configuration) =>
-            services
+        /// <param name="pluginBuilder">The <see cref="IElvetPluginsBuilder" /> to add the plugin to.</param>
+        /// <returns>The <paramref name="pluginBuilder" /> with the plugin added to enable chaining.</returns>
+        public static IElvetPluginsBuilder AddRoleBackPlugin(this IElvetPluginsBuilder pluginBuilder)
+        {
+            pluginBuilder.Services
                 .AddValidatedConfig<RoleBackConfig>("Elvet", "RoleBack")
-                .AddDbContext<RoleBackDbContext>(options => options.UseSqlServer(configuration.GetRequiredSection<RoleBackConfig>("Elvet", "RoleBack").Validate().ConnectionString))
-                .AddScoped<RoleBackService>()
+                .AddDbContext<RoleBackDbContext>(options => options.UseSqlServer(pluginBuilder.Configuration.GetRequiredSection<RoleBackConfig>("Elvet", "RoleBack").Validate().ConnectionString))
+                .AddScoped<RoleBackService>();
+
+            pluginBuilder
                 .AddPlugin<RoleBackPlugin>();
+
+            return pluginBuilder;
+        }
     }
 }

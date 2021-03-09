@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -32,8 +31,6 @@ namespace Elvet.Core.Plugins
             Logger = logger;
             _serviceScopeFactory = serviceScopeFactory;
         }
-
-        public abstract IEnumerable<Type> GetModules();
 
         public abstract Task StartAsync(CancellationToken cancellationToken = default);
 
