@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Elvet.RoleBack.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class RoleBackInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
