@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Discord;
 using Discord.WebSocket;
 using Elvet.Core.Plugins;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,14 +20,13 @@ namespace Elvet.RoleBack
         /// </summary>
         /// <param name="logger">The <see cref="ILogger" />.</param>
         /// <param name="serviceScopeFactory">The <see cref="IServiceScopeFactory" /> used to enabled running scoped operations.</param>
+        /// <param name="config">The <see cref="RoleBackConfig" />.</param>
         /// <param name="discordClient">The <see cref="DiscordSocketClient" /> to use.</param>
         public RoleBackPlugin(ILogger<RoleBackPlugin> logger, IServiceScopeFactory serviceScopeFactory, RoleBackConfig config, DiscordSocketClient discordClient)
             : base(logger, serviceScopeFactory, config)
         {
             _discordClient = discordClient;
         }
-
-        public override IEnumerable<Type> GetModules() => Enumerable.Empty<Type>();
 
         protected override Task OnStartAsync(CancellationToken cancellationToken = default)
         {
