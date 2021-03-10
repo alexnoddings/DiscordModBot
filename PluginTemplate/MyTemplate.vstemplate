@@ -1,0 +1,36 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Elvet Plugin</Name>
+    <Description>Base plugin structure for an Elvet plugin.</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <LanguageTag>C#</LanguageTag>
+    <PlatformTag>All platforms</PlatformTag>
+    <ProjectTypeTag>Web</ProjectTypeTag>
+    <ProjectTypeTag>Elvet</ProjectTypeTag>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>ExamplePlugin</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <CreateInPlace>true</CreateInPlace>
+    <Icon>__TemplateIcon.png</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <CustomParameters>
+      <CustomParameter Name="$pluginname$" Value="$safeprojectname$"/>
+    </CustomParameters>
+    <Project TargetFileName="$safeprojectname$.csproj" File="Plugin.csproj" ReplaceParameters="true">
+      <Folder Name="Data" TargetFolderName="Data">
+        <ProjectItem ReplaceParameters="true" TargetFileName="$pluginname$DbContext.cs">PluginDbContext.cs</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$pluginname$Config.cs">PluginConfig.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$pluginname$Module.cs">PluginModule.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$pluginname$Plugin.cs">PluginPlugin.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$pluginname$Service.cs">PluginService.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="ServiceCollectionExtensions.cs">ServiceCollectionExtensions.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>
