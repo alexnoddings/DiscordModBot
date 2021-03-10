@@ -1,4 +1,4 @@
-namespace Elvet.Core.Plugins
+namespace Elvet.Core.Plugins.Config
 {
     /// <summary>
     /// Base configuration for an <see cref="IElvetPlugin"/>.
