@@ -2,10 +2,11 @@ using System;
 using Elvet.Core;
 using Elvet.Core.Config.Exceptions;
 using Elvet.Core.Plugins;
+using Elvet.Core.Plugins.Config;
 
 namespace Elvet.RoleBack
 {
-    internal class RoleBackConfig : IPluginConfig, IValidateAble<RoleBackConfig>
+    internal class RoleBackConfig : IPluginConfig, IConnectionStringConfig, IValidateAble<RoleBackConfig>
     {
         public bool Enabled { get; set; } = true;
 

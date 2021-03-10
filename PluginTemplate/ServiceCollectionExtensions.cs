@@ -21,7 +21,7 @@ namespace $safeprojectname$
         {
             pluginsBuilder.Services
                 .AddValidatedConfig<$pluginname$Config>("Elvet", "$pluginname$")
-                .AddDbContext<$pluginname$DbContext>((services, options) => options.UseSqlServer(services.GetRequiredService<$pluginname$Config>().ConnectionString))
+                .AddDbContext<$pluginname$DbContext>((services, options) => options.UseSqlServer(services.GetConnectionString<$pluginname$Config>()))
                 .AddScoped<$pluginname$Service>();
 
             pluginsBuilder

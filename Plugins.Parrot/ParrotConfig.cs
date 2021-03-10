@@ -2,10 +2,11 @@ using System;
 using Elvet.Core;
 using Elvet.Core.Config.Exceptions;
 using Elvet.Core.Plugins;
+using Elvet.Core.Plugins.Config;
 
 namespace Elvet.Parrot
 {
-    internal class ParrotConfig : IPluginConfig, IValidateAble<ParrotConfig>
+    internal class ParrotConfig : IPluginConfig, IConnectionStringConfig, IValidateAble<ParrotConfig>
     {
         public bool Enabled { get; set; } = true;
 

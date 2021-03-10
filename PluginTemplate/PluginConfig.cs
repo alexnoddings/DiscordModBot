@@ -1,10 +1,10 @@
 using Elvet.Core;
 using Elvet.Core.Config.Exceptions;
-using Elvet.Core.Plugins;
+using Elvet.Core.Plugins.Config;
 
 namespace $safeprojectname$
 {
-    internal class $pluginname$Config : IPluginConfig, IValidateAble<$pluginname$Config>
+    internal class $pluginname$Config : IPluginConfig, IConnectionStringConfig, IValidateAble<$pluginname$Config>
     {
         public bool Enabled { get; set; } = true;
 
