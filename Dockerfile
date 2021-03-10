@@ -1,5 +1,3 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/runtime:6.0 AS base
 WORKDIR /app
 
@@ -8,7 +6,8 @@ WORKDIR /src
 COPY ["Directory.Build.props", "./"]
 COPY ["Host/Elvet.Host.csproj", "Host/"]
 COPY ["Core/Elvet.Core.csproj", "Core/"]
-COPY ["Modules.RoleBack/Elvet.RoleBack.csproj", "Modules.RoleBack/"]
+COPY ["Plugins.Parrot/Elvet.Parrot.csproj", "Plugins.Parrot/"]
+COPY ["Plugins.RoleBack/Elvet.RoleBack.csproj", "Plugins.RoleBack/"]
 RUN dotnet restore "Host/Elvet.Host.csproj"
 COPY . .
 WORKDIR "/src/Host"
