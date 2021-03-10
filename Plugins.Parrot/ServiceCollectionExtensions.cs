@@ -21,7 +21,7 @@ namespace Elvet.Parrot
         {
             pluginsBuilder.Services
                 .AddValidatedConfig<ParrotConfig>("Elvet", "Parrot")
-                .AddDbContext<ParrotDbContext>(options => options.UseSqlServer(pluginsBuilder.Configuration.GetRequiredSection<ParrotConfig>("Elvet", "Parrot").Validate().ConnectionString))
+                .AddDbContext<ParrotDbContext>((services, options) => options.UseSqlServer(services.GetConnectionString<ParrotConfig>()))
                 .AddScoped<ParrotService>();
 
             pluginsBuilder

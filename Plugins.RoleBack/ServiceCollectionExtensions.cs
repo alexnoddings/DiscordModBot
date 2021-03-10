@@ -21,7 +21,7 @@ namespace Elvet.RoleBack
         {
             pluginBuilder.Services
                 .AddValidatedConfig<RoleBackConfig>("Elvet", "RoleBack")
-                .AddDbContext<RoleBackDbContext>(options => options.UseSqlServer(pluginBuilder.Configuration.GetRequiredSection<RoleBackConfig>("Elvet", "RoleBack").Validate().ConnectionString))
+                .AddDbContext<RoleBackDbContext>((services, options) => options.UseSqlServer(services.GetConnectionString<RoleBackConfig>()))
                 .AddScoped<RoleBackService>();
 
             pluginBuilder
