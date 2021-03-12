@@ -6,6 +6,7 @@ WORKDIR /src
 COPY ["Directory.Build.props", "./"]
 COPY ["Host/Elvet.Host.csproj", "Host/"]
 COPY ["Core/Elvet.Core.csproj", "Core/"]
+COPY ["Plugins.FridayNightLive/Elvet.FridayNightLive.csproj", "Plugins.FridayNightLive/"]
 COPY ["Plugins.Parrot/Elvet.Parrot.csproj", "Plugins.Parrot/"]
 COPY ["Plugins.RoleBack/Elvet.RoleBack.csproj", "Plugins.RoleBack/"]
 RUN dotnet restore "Host/Elvet.Host.csproj"
