@@ -19,5 +19,10 @@ namespace Elvet.Core.Config
         /// The prefix before Bot commands.
         /// </summary>
         public string CommandPrefix { get; }
+
+        /// <summary>
+        /// The default connection string for plugins.
+        /// </summary>
+        public string DefaultConnectionString { get; }
     }
 }

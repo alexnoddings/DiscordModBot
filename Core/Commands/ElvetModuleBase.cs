@@ -15,7 +15,7 @@ namespace Elvet.Core.Commands
         protected virtual IEmote SuccessReactionEmote { get; } = new Emoji("✅");
 
         /// <summary>
-        /// The emote used by <see cref="MarkSuccessful"/>.
+        /// The emote used by <see cref="MarkError"/>.
         /// </summary>
         protected virtual IEmote ErrorReactionEmote { get; } = new Emoji("❌");
 
@@ -40,5 +40,10 @@ namespace Elvet.Core.Commands
         protected override Task<IUserMessage> ReplyAsync(string? message = null, bool isTts = false, Embed? embed = null,
             RequestOptions? options = null, AllowedMentions? allowedMentions = null, MessageReference? messageReference = null) =>
             Context.Message.ReplyAsync(message, isTts, embed, allowedMentions, options);
+
+        /// <inheritdoc cref="ModuleBase{T}.ReplyAsync"/>
+        protected Task<IUserMessage> SendAsync(string? message = null, bool isTts = false, Embed? embed = null,
+            RequestOptions? options = null, AllowedMentions? allowedMentions = null, MessageReference? messageReference = null) =>
+            base.ReplyAsync(message, isTts, embed, options, allowedMentions, messageReference);
     }
 }

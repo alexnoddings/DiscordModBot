@@ -1,7 +1,6 @@
 using System;
 using Elvet.Core;
 using Elvet.Core.Config.Exceptions;
-using Elvet.Core.Plugins;
 using Elvet.Core.Plugins.Config;
 
 namespace Elvet.Parrot
@@ -10,7 +9,7 @@ namespace Elvet.Parrot
     {
         public bool Enabled { get; set; } = true;
 
-        public string ConnectionString { get; set; } = string.Empty;
+        public string? ConnectionString { get; set; }
 
         /// <summary>
         /// The maximum time into the future a message can be scheduled.
@@ -31,9 +30,6 @@ namespace Elvet.Parrot
         {
             if (MaxTriggerTime < TimeSpan.Zero)
                 MaxTriggerTime = TimeSpan.MaxValue;
-
-            if (string.IsNullOrWhiteSpace(ConnectionString))
-                throw new BadConfigurationException(nameof(ConnectionString), nameof(ParrotConfig), "cannot be null or whitespace.");
 
             if (MaxReminders < 1)
                 throw new BadConfigurationException(nameof(MaxReminders), nameof(ParrotConfig), "must be >= 1.");
