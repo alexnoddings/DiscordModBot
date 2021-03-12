@@ -1,7 +1,5 @@
 using System;
 using Elvet.Core;
-using Elvet.Core.Config.Exceptions;
-using Elvet.Core.Plugins;
 using Elvet.Core.Plugins.Config;
 
 namespace Elvet.RoleBack
@@ -10,7 +8,7 @@ namespace Elvet.RoleBack
     {
         public bool Enabled { get; set; } = true;
 
-        public string ConnectionString { get; set; } = string.Empty;
+        public string? ConnectionString { get; set; }
 
         /// <summary>
         /// How long roles are valid for after disconnection. If a user joins after this time, their roles won't be reinstated.
@@ -19,8 +17,8 @@ namespace Elvet.RoleBack
 
         public RoleBackConfig Validate()
         {
-            if (string.IsNullOrWhiteSpace(ConnectionString))
-                throw new BadConfigurationException(nameof(ConnectionString), nameof(RoleBackConfig), "cannot be null or whitespace.");
+            if (RolesValidFor < TimeSpan.Zero)
+                RolesValidFor = TimeSpan.MaxValue;
 
             return this;
         }
