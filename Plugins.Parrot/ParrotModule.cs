@@ -1,10 +1,10 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Elvet.Core.Commands;
 using Elvet.Parrot.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Elvet.Parrot
 {

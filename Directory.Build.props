@@ -26,8 +26,8 @@
   <PropertyGroup>
     <!-- Targets -->
     <DefaultFramework>net6.0</DefaultFramework>
-    <MicrosoftPackageVersion>6.0.0-preview.1.21102.12</MicrosoftPackageVersion>
-    <EntityFrameworkPackageVersion>6.0.0-preview.1.21102.2</EntityFrameworkPackageVersion>
+    <MicrosoftPackageVersion>6.0.0-preview.2.21154.6</MicrosoftPackageVersion>
+    <EntityFrameworkPackageVersion>6.0.0-preview.2.21154.2</EntityFrameworkPackageVersion>
   </PropertyGroup>
 
   <!-- Warnings and errors -->
