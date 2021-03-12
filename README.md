@@ -13,6 +13,9 @@ The Host project acts as the startup and service/plugin-registration point.
 ## Plugins
 The plugin projects introduce all of the user-facing functionality of the bot.
 
+### [Friday Night Live](Plugins.FridayNightLive/)
+A plugin to track the host and winner(s) of our weekly Friday night activities.
+
 ### [Parrot](Plugins.Parrot/)
 A plugin to send reminders to users.
 
