@@ -14,7 +14,7 @@ namespace Elvet.RoleBack
     internal class RoleBackService
     {
         private static readonly RequestOptions DefaultAddRolesRequestOptions =
-            new() {AuditLogReason = "[RoleBack] Adding previous user's roles."};
+            new() { AuditLogReason = "[RoleBack] Adding previous user's roles." };
 
 
         private readonly RoleBackDbContext _dbContext;
@@ -91,7 +91,7 @@ namespace Elvet.RoleBack
             if (userGuildRoles is null)
             {
                 // Add new user guild roles
-                userGuildRoles = new UserGuildRoles {User = guildUser.Id, Guild = guildUser.Guild.Id, Roles = roles};
+                userGuildRoles = new UserGuildRoles { User = guildUser.Id, Guild = guildUser.Guild.Id, Roles = roles };
                 _dbContext.UserGuildRoles.Add(userGuildRoles);
             }
             else
@@ -115,20 +115,22 @@ namespace Elvet.RoleBack
 
             var lastKicks = await guildUser.Guild.GetAuditLogsAsync(4, actionType: ActionType.Kick).ToListAsync();
             var lastBans = await guildUser.Guild.GetAuditLogsAsync(4, actionType: ActionType.Ban).ToListAsync();
-            var logEntries = lastKicks.Union(lastBans).SelectMany(collection => collection);
-
-            var hasNoRolesFlag = logEntries
-                .Any(entry =>
-                    // The entry must have happened recently
-                    entry.CreatedAt > timeFrame
-                    // The reason must have contained the "norole" flag
-                    && entry.Reason.Contains("norole")
-                    // The entry must be a kick or ban targetted as the user
-                    && (entry.Data is KickAuditLogData kick && kick.Target.Id == guildUser.Id
-                        || entry.Data is BanAuditLogData ban && ban.Target.Id == guildUser.Id));
 
             // User should be allowed to keep roles if no flag was found
-            return hasNoRolesFlag;
+            return
+            lastKicks
+                .Union(lastBans)
+                    .SelectMany(collection => collection)
+                    .Where(entry => entry is not null)
+                    .Any(entry =>
+                        // The entry must have happened recently
+                        entry.CreatedAt > timeFrame
+                        // The reason must have contained the "norole" flag
+                        && entry.Reason is not null
+                        && entry.Reason.Contains("norole")
+                        // The entry must be a kick or ban targetted as the user
+                        && (entry.Data is KickAuditLogData kick && kick.Target.Id == guildUser.Id
+                            || entry.Data is BanAuditLogData ban && ban.Target.Id == guildUser.Id));
         }
     }
 }
