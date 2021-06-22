@@ -16,7 +16,6 @@ namespace $safeprojectname$
         public $pluginname$Service($pluginname$DbContext dbContext)
         {
             _dbContext = dbContext;
-            _restClient = restClient;
         }
     }
 }

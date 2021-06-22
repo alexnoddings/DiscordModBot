@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\Elvet.Core.csproj" />
     <ProjectReference Include="..\Plugins.FridayNightLive\Elvet.FridayNightLive.csproj" />
+    <ProjectReference Include="..\Plugins.InCharacter\Elvet.InCharacter.csproj" />
     <ProjectReference Include="..\Plugins.Parrot\Elvet.Parrot.csproj" />
     <ProjectReference Include="..\Plugins.RoleBack\Elvet.RoleBack.csproj" />
   </ItemGroup>
