@@ -2,24 +2,24 @@ name: .NET
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, dev ]
   pull_request:
     branches: [ main ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: dotnet setup
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.100-preview.1.21103.13
-    - name: Restore dependencies
+        dotnet-version: '6.0.x'
+        include-prerelease: true
+    - name: dotnet restore
       run: dotnet restore
-    - name: Build
+    - name: dotnet build
       run: dotnet build --no-restore
-    - name: Test
+    - name: dotnet test
       run: dotnet test --no-build --verbosity normal
