@@ -1,6 +1,7 @@
 using Elvet.Core.Extensions;
 using Elvet.Core.Plugins.Extensions;
 using Elvet.FridayNightLive;
+using Elvet.InCharacter;
 using Elvet.Parrot;
 using Elvet.RoleBack;
 using Microsoft.Extensions.Configuration;
@@ -59,6 +60,7 @@ namespace Elvet.Host
                         .AddRoleBackPlugin()
                         .AddParrotPlugin()
                         .AddFridayNightLivePlugin()
+                        .AddInCharacterPlugin()
                 );
         }
     }
